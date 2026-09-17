@@ -1,46 +1,10 @@
-/* Element selector - styles all body */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f6f8;
-    margin: 20px;
-    padding: 20px;
-}
-
-/* Element selector - main heading */
-h1 {
-    color: #1a73e8;
-    text-align: center;
-}
-
-/* ID selector - Add Expense section */
-#add-expense {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-}
-
-/* Class selector - Your Expenses placeholder */
-.expenses-section {
-    background-color: #e8f0fe;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px dashed #1a73e8;
-}
-
-input {
-    padding: 8px;
-    margin: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-button {
-    padding: 8px 15px;
-    background-color: #1a73e8;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid #ddd;padding:12px}
+thead th{background:#2c3e50;color:white}
+tbody tr:nth-child(even){background:#f2f2f2}
+tbody tr:hover{background:#d6eaf8}
+button{cursor:pointer;padding:10px 20px;background:#2c3e50;color:white;border:none}
+.expenses-section td{font-size:14px}
+.add-expense-section > form > input{border:1px solid #ccc}
+input:not([type="date"]){background:#fffff5}
+input:focus,select:focus{border:2px solid #2c3e50;outline:none}
