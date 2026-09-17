@@ -1,28 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SpendWise - My Budget Tracker</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<title>Budget Tracker</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>My Budget Tracker</h1>
-       <p>Track your income and expenses in one place.</p>
+<header>
+<img src="https://cdn-icons-png.flaticon.com/512/2830/2830284.png" alt="Logo" width="50">
+<h1>My Budget Tracker</h1>
+<details><summary>How to use this tracker</summary><p>Add expenses using the form. The table shows your history.</p></details>
+</header>
 
-    <section id="add-expense">
-        <h2>Add Expense</h2>
-        <input type="text" id="expenseName" placeholder="Expense name (e.g. Groceries)">
-        <input type="number" id="expenseAmount" placeholder="Amount (e.g. 500)">
-        <input type="text" id="expenseCategory" placeholder="Category (e.g. Food)">
-        <button>Add Expense</button>
-    </section>
+<section class="add-expense-section">
+<h2>Add New Expense</h2>
+<form>
+<label for="expense-name">Name:</label><input type="text" id="expense-name">
+<label for="expense-amount">Amount:</label><input type="number" id="expense-amount">
+<label for="expense-category">Category:</label>
+<select id="expense-category">
+<option value="food">Food</option>
+<option value="transport">Transport</option>
+<option value="rent">Rent</option>
+<option value="entertainment">Entertainment</option>
+<option value="other">Other</option>
+</select>
+<label for="expense-date">Date:</label><input type="date" id="expense-date">
+<button type="button">Add Expense</button>
+</form>
+</section>
 
-    <section class="expenses-section">
-        <h2>Your Expenses</h2>
-        <p>No expenses yet</p>
-    </section>
+<section class="expenses-section">
+<h2>My Expenses</h2>
+<table>
+<thead><tr><th>Name</th><th>Amount</th><th>Category</th><th>Date</th></tr></thead>
+<tbody>
+<tr><td>Chapo</td><td>150</td><td>Food</td><td>2026-05-10</td></tr>
+<tr><td>Matatu</td><td>100</td><td>Transport</td><td>2026-05-11</td></tr>
+<tr><td>Rent</td><td>8000</td><td>Rent</td><td>2026-05-01</td></tr>
+<tr><td>Netflix</td><td>1200</td><td>Entertainment</td><td>2026-05-05</td></tr>
+<tr><td>Airtime</td><td>200</td><td>Other</td><td>2026-05-12</td></tr>
+</tbody>
+</table>
+</section>
 
-    <script src="script.js"></script>
+<section>
+<h2>Budgeting Tips</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/M7lc1UVf-VE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</section>
+
 </body>
 </html>
