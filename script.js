@@ -1,57 +1,77 @@
-// 1. SET UP JAVASCRIPT - file linked and loaded
-console.log("SpendWise is running...");
+// 2. Work with Multiple Records - Array to store expenses
+let expenses = [];
 
-// 2. STORE APPLICATION DATA
-let monthlyBudget = 0;
-let expenseName1 = "";
-let expenseAmount1 = 0;
-let expenseName2 = "";
-let expenseAmount2 = 0;
-let allExpenses = [];
+// 5. Handle User Interactions - Event Listeners
+document.getElementById('add-btn').addEventListener('click', addExpense);
+document.getElementById('income').addEventListener('input', updateDashboard);
 
-// 3. COLLECT USER INPUT using prompts
-monthlyBudget = Number(prompt("Enter your monthly budget (e.g. 40000):"));
-expenseName1 = prompt("Enter first expense name (e.g. Rent):");
-expenseAmount1 = Number(prompt(`Enter amount for ${expenseName1}:`));
-expenseName2 = prompt("Enter second expense name (e.g. Food):");
-expenseAmount2 = Number(prompt(`Enter amount for ${expenseName2}:`));
+function addExpense() {
+  const desc = document.getElementById('desc').value.trim();
+  const amount = parseFloat(document.getElementById('amount').value);
+  const category = document.getElementById('category').value;
 
-allExpenses = [expenseAmount1, expenseAmount2];
-
-// 4 & 5. PERFORM CALCULATIONS + REUSABLE FUNCTIONS
-
-function calculateTotalExpenses(expensesArray) {
-  let total = 0;
-  for (let i = 0; i < expensesArray.length; i++) {
-    total += expensesArray[i];
+  if (desc === "" || isNaN(amount) || amount <= 0) {
+    alert("Please enter valid description and amount");
+    return;
   }
-  return total;
+
+  // Add to array
+  expenses.push({ id: Date.now(), description: desc, amount: amount, category: category });
+
+  // Clear inputs
+  document.getElementById('desc').value = "";
+  document.getElementById('amount').value = "";
+
+  updateDashboard();
 }
 
-function calculateBalance(budget, totalExpenses) {
-  return budget - totalExpenses;
+// 4. Update Dashboard Dynamically + 3. Process Data with Loops + 1. Decision Making
+function updateDashboard() {
+  const income = parseFloat(document.getElementById('income').value) || 0;
+  let total = 0;
+
+  // 3. Process Data with Loops
+  for (let i = 0; i < expenses.length; i++) {
+    total += expenses[i].amount;
+  }
+
+  const remaining = income - total;
+
+  // 4. DOM Manipulation - update page directly
+  document.getElementById('total').textContent = `KES ${total}`;
+  document.getElementById('remaining').textContent = `KES ${remaining}`;
+
+  const expenseList = document.getElementById('expense-list');
+  expenseList.innerHTML = ""; // clear
+
+  // Loop to display records
+  expenses.forEach((exp) => {
+    const li = document.createElement('li');
+    li.innerHTML = `${exp.description} (${exp.category}) - KES ${exp.amount} <button class="delete-btn" onclick="deleteExpense(${exp.id})">X</button>`;
+    expenseList.appendChild(li);
+  });
+
+  // 1. Implement Decision Making
+  const statusEl = document.getElementById('status');
+  if (total > income) {
+    statusEl.textContent = "🚨 Over Budget! You are spending too much!";
+    statusEl.style.background = "#ffcccc";
+  } else if (total > income * 0.8) {
+    statusEl.textContent = "⚠️ Warning: You have used 80% of your income";
+    statusEl.style.background = "#fff3cd";
+  } else if (total === 0) {
+    statusEl.textContent = "Status: No expenses yet";
+    statusEl.style.background = "#eef";
+  } else {
+    statusEl.textContent = "✅ Good Job! You are within budget";
+    statusEl.style.background = "#d4edda";
+  }
 }
 
-function calculatePercentageSpent(budget, totalExpenses) {
-  return (totalExpenses / budget) * 100;
+function deleteExpense(id) {
+  expenses = expenses.filter(exp => exp.id!== id);
+  updateDashboard();
 }
 
-// Using the functions
-let totalSpent = calculateTotalExpenses(allExpenses);
-let remainingBalance = calculateBalance(monthlyBudget, totalSpent);
-let percentSpent = calculatePercentageSpent(monthlyBudget, totalSpent);
-
-// 6. DISPLAY RESULTS in console
-console.log("--- SpendWise Budget Report ---");
-console.log(`Monthly Budget: ${monthlyBudget}`);
-console.log(`Expense 1: ${expenseName1} - ${expenseAmount1}`);
-console.log(`Expense 2: ${expenseName2} - ${expenseAmount2}`);
-console.log(`Total Spent: ${totalSpent}`);
-console.log(`Remaining Balance: ${remainingBalance}`);
-console.log(`Percentage Spent: ${percentSpent.toFixed(2)}%`);
-
-if (remainingBalance < 0) {
-  console.log("Warning: You have exceeded your budget!");
-} else {
-  console.log("Great! You are within budget.");
-}
+// Initial load
+updateDashboard();
