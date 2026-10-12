@@ -1,224 +1,230 @@
-/* ==========================================================
-   Budget Tracker - Week 3: Visual Design
-   Fonts: DM Serif Display (headings) + DM Sans (body)
-   ========================================================== */
-
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap');
-
-/* ---------- 1. Color palette (change colors here only) ---------- */
+/* 3. THEME USING CSS CUSTOM PROPERTIES */
 :root {
-  --bg: #eef3f0;           /* page background */
-  --card: #ffffff;         /* card background */
-  --primary: #1f4d3a;      /* headings, buttons, table header */
-  --primary-dark: #163a2b; /* button hover */
-  --accent: #e6f2ec;       /* alternating rows, soft highlights */
-  --highlight: #e0a526;    /* focus ring */
-  --danger: #b3412e;       /* delete buttons */
-  --text: #26312c;         /* body text */
-  --border: #cfdcd4;       /* borders */
+  --brand: #4f46e5;
+  --brand-light: #e0e7ff;
+  --accent: #10b981;
+  --surface: #f8fafc;
+  --card-bg: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --border: #e2e8f0;
+  --shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
 }
 
-/* ---------- Reset / base ---------- */
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  padding: 32px 16px;
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 1rem;
-  line-height: 1.5;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--surface);
+  color: var(--text-primary);
 }
 
-/* ---------- 2. Typography ---------- */
-h1,
-h2,
-h3 {
-  font-family: 'DM Serif Display', serif;
-  font-weight: 400;
-  color: var(--primary);
-  margin: 0 0 12px;
-  line-height: 1.2;
+/* 2. CSS GRID FOR OVERALL LAYOUT */
+.dashboard {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  grid-template-rows: 80px 1fr;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
+  min-height: 100vh;
 }
 
-h1 { font-size: 2.2rem; }
-h2 { font-size: 1.5rem; }
-h3 { font-size: 1.15rem; }
+.sidebar { grid-area: sidebar; }
+.header { grid-area: header; }
+.main { grid-area: main; }
 
-label,
-input,
-select,
-textarea,
-button,
-table,
-th,
-td {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 1rem;
+/* SIDEBAR - FLEXBOX */
+.sidebar {
+  background: var(--card-bg);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
 }
 
-label {
-  display: block;
-  font-weight: 500;
-  color: var(--primary);
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 32px;
 }
-
-/* ---------- 4. Box model: the three cards ----------
-   Heading card, Add Expense form card, Expense table card.
-   (If your heading or form sits inside a wrapper with a class,
-   add that selector to this list.) */
-header,
-body > h1,
-form,
-table {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 24px;
-  margin: 0 auto 28px;
-  max-width: 820px;
-  box-shadow: 0 2px 10px rgba(31, 77, 58, 0.08);
-}
-
-/* If the h1 is inside a <header>, don't make a card inside a card */
-header h1 {
-  margin: 0;
-  padding: 0;
-  border: none;
-  box-shadow: none;
-  background: none;
-}
-
-header {
-  text-align: center;
-  border-top: 6px solid var(--primary);
-}
-
-body > h1 {
-  text-align: center;
-  border-top: 6px solid var(--primary);
-}
-
-/* ---------- 3. Add Expense form ---------- */
-form h2,
-form h3 {
-  margin-bottom: 16px;
-}
-
-input,
-select,
-textarea {
-  display: block;
-  width: 100%;
-  padding: 10px 14px;
-  margin: 6px 0 16px;
-  background: #fff;
-  color: var(--text);
-  border: 1px solid var(--border);
+.logo-icon {
+  background: var(--brand);
+  color:#166534(255, 255, 255);
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
   border-radius: 8px;
+  font-weight: bold;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-  outline: 3px solid var(--highlight);
-  outline-offset: 0;
-  border-color: var(--primary);
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
 }
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+}
+.nav-item.active, .nav-item:hover {
+  background: var(--brand-light);
+  color: var(--brand);
+}
+.sidebar-footer { margin-top: auto; }
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.avatar {
+  width: 36px; height: 36px;
+  background: var(--brand);
+  color: white;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+.user-name { font-size: 14px; font-weight: 600; }
+.user-email { font-size: 12px; color: var(--text-secondary); }
 
-button,
-input[type="submit"] {
-  display: inline-block;
-  width: auto;
-  padding: 10px 22px;
-  margin: 0;
-  background: var(--primary);
-  color: #fff;
-  font-weight: 500;
-  border: 1px solid var(--primary);
+/* HEADER - FLEXBOX */
+.header {
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 28px;
+}
+.header-left h1 { font-size: 20px; }
+.header-left p { font-size: 14px; color: var(--text-secondary); }
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.balance-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.balance-card span { font-size: 12px; color: var(--text-secondary); }
+.btn-primary {
+  background: var(--brand);
+  color: white;
+  border: none;
+  padding: 10px 18px;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.15s ease;
+  font-weight: 600;
 }
 
-button:hover,
-input[type="submit"]:hover {
-  background: var(--primary-dark);
+/* MAIN CARDS */
+.main { padding: 28px; }
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
-button:focus-visible,
-input[type="submit"]:focus-visible {
-  outline: 3px solid var(--highlight);
-  outline-offset: 2px;
+/* CARD - FLEXBOX INSIDE */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: var(--shadow);
+  outline: none;
+  
+  /* 5. MICRO-INTERACTIONS */
+  transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
-/* ---------- 3. Expense table ----------
-   The table itself is the card. border-collapse: separate lets the
-   rounded corners show; overflow: hidden clips the header corners. */
-table {
-  width: 100%;
-  padding: 0;
-  border-collapse: separate;
-  border-spacing: 0;
-  overflow: hidden;
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+}
+.food { background: #fef3c7; }
+.transport { background: #dbeafe; }
+.rent { background: #ede9fe; }
+.entertainment { background: #fce7f3; }
+.savings { background: #d1fae5; }
+.utilities { background: #ffedd5; }
+
+.card h3 { font-size: 14px; color: var(--text-secondary); font-weight: 500; }
+.card-amount { font-size: 22px; font-weight: 700; }
+
+.card-trend { font-size: 12px; padding: 4px 8px; border-radius: 20px; }
+.up { background: #dcfce7; color: #166534; }
+.down { background: #fee2e2; color: #991b1b; }
+.neutral { background: var(--surface); color: var(--text-secondary); }
+
+.card-progress { display: flex; flex-direction: column; gap: 6px; }
+.card-progress span { font-size: 12px; color: var(--text-secondary); }
+.progress-bar { height: 6px; background: var(--surface); border-radius: 10px; overflow: hidden; }
+.progress { height: 100%; background: var(--brand); border-radius: 10px; }
+
+/* 5. HOVER AND FOCUS STATES */
+.card:hover,
+.card:focus {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 20px -5px rgba(0,0,0,0.1);
+  border-color: var(--brand);
 }
 
-th,
-td {
-  padding: 14px 16px;
-  text-align: left;
-  border-bottom: 1px solid var(--border);
+/* 4. RESPONSIVE */
+@media (max-width: 768px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      "sidebar"
+      "header"
+      "main";
+  }
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+  }
+  .header-right { width: 100%; justify-content: space-between; }
+  .cards-grid { grid-template-columns: 1fr; }
 }
 
-th {
-  background: var(--primary);
-  color: #fff;
-  font-weight: 700;
-  border-bottom: none;
-}
-
-/* Vertical dividers for structure */
-th + th,
-td + td {
-  border-left: 1px solid var(--border);
-}
-
-th + th {
-  border-left: 1px solid rgba(255, 255, 255, 0.25);
-}
-
-/* Alternating row colors */
-tbody tr:nth-child(even) {
-  background: var(--accent);
-}
-
-tbody tr:hover {
-  background: #d5e9de;
-}
-
-tbody tr:last-child td {
-  border-bottom: none;
-}
-
-/* Small buttons inside table rows (e.g. Delete) */
-td button {
-  padding: 6px 12px;
-  font-size: 0.9rem;
-  background: var(--danger);
-  border-color: var(--danger);
-}
-
-td button:hover {
-  background: #8f3222;
-}
-
-/* ---------- Small screens ---------- */
-@media (max-width: 600px) {
-  body { padding: 16px 10px; }
-  h1 { font-size: 1.8rem; }
-  th,
-  td { padding: 10px 8px; font-size: 0.9rem; }
+/* STRETCH GOAL: DARK THEME */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --brand: #818cf8;
+    --brand-light: #312e81;
+    --accent: #34d399;
+    --surface: #0f172a;
+    --card-bg: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border: #334155;
+    --shadow: 0 4px 6px -1px rgba(0,0,0,0.3);
+  }
 }
